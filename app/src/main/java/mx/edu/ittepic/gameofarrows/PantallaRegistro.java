@@ -7,7 +7,7 @@ import android.widget.EditText;
 
 public class PantallaRegistro extends AppCompatActivity {
 
-    EditText nombre,alias;
+    EditText nombre,alias,cel,cel2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +16,12 @@ public class PantallaRegistro extends AppCompatActivity {
 
         nombre = (EditText) findViewById(R.id.editText3);
         alias = (EditText) findViewById(R.id.fuente);
+        cel = (EditText) findViewById(R.id.editText4);
+        cel2 = (EditText) findViewById(R.id.editText5);
         Typeface f = Typeface.createFromAsset(getAssets(),"GOT.ttf");
+        nombre.setTypeface(f);
         alias.setTypeface(f);
+        cel.setTypeface(f);
+        cel2.setTypeface(f);
     }
 }

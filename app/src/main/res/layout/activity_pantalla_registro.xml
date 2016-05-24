@@ -18,7 +18,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textAlignment="center"
-        android:hint="Escribe tu Nombre: "
+        android:hint="Escribe tu Nombre"
         android:layout_marginTop="47dp" />
 
     <EditText
@@ -29,5 +29,24 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="39dp"
         android:textAlignment="center"
-        android:hint="Elige un Alias: "/>
+        android:hint="Elige un Alias"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText4"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:hint="Celular" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText5"
+        android:layout_below="@+id/editText4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp"
+        android:textAlignment="center"
+        android:hint="Verificar Celular"/>
 </RelativeLayout>
