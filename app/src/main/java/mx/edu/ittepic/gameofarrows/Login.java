@@ -38,7 +38,7 @@ public class Login extends AppCompatActivity {
                 conexionWeb.agregarVariables("usuario",alias.getText().toString());
                 conexionWeb.agregarVariables("contra",contra.getText().toString());
                 try {
-                    URL url = new URL("http://gameofarrows.ueuo.com/login.php");
+                    URL url = new URL("http://gameofarrows.ueuo.com/GameOfArrows/login.php");
                     conexionWeb.execute(url);
                 }catch (MalformedURLException e){
                     new AlertDialog.Builder(Login.this).setMessage(e.getMessage()).setTitle("Error").show();
@@ -64,7 +64,7 @@ public class Login extends AppCompatActivity {
     public void abrirRegistro(){startActivity(new Intent(this,PantallaRegistro.class));}
     public void abrirPrincipal(){startActivity(new Intent(this,Principal.class));}
 
-    protected void mostrarResultado(String res){
+    public void mostrarResultado(String res){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
         if(res.startsWith("Error_404_2")){
