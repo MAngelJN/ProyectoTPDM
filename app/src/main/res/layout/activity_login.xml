@@ -51,4 +51,16 @@
         android:layout_alignEnd="@+id/editText"
         android:textAlignment="center"
         android:hint="Contraseña"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="¿No estás registrado?"
+        android:id="@+id/textView"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="39dp"
+        android:textColor="#fb2f3d"
+        android:textStyle="bold|italic"/>
 </RelativeLayout>
