@@ -88,7 +88,7 @@ public class Login extends AppCompatActivity {
         }
 
 
-        alert.setTitle("Respuesta desde servidor")
+        /*alert.setTitle("Respuesta desde servidor")
                 .setMessage(res)
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
@@ -96,7 +96,7 @@ public class Login extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 })
-                .show();
+                .show();*/
 
     }
 }
