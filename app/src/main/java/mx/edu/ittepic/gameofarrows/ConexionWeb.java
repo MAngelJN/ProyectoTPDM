@@ -21,10 +21,15 @@ import java.util.List;
 public class ConexionWeb extends AsyncTask<URL,String,String> {
     List<String[]> variables;
     Login login;
+    PantallaRegistro registro;
 
-    public ConexionWeb(Login a){
+    public ConexionWeb(Login l){
         variables = new ArrayList<String[]>();
-        login=a;
+        login=l;
+    }
+    public ConexionWeb(PantallaRegistro pR){
+        variables = new ArrayList<String[]>();
+        registro=pR;
     }
     public void agregarVariables(String id,String dato){
         String[] temp = {id,dato};
@@ -89,6 +94,12 @@ public class ConexionWeb extends AsyncTask<URL,String,String> {
     }
     protected void onPostExecute(String s){
         super.onPostExecute(s);
-        login.resultado(s);
+        if (!(login==null)){
+            login.resultado(s);
+        }
+        if (!(registro==null)){
+
+        }
+
     }
 }

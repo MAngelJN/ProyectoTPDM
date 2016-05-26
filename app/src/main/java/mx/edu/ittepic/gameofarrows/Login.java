@@ -79,12 +79,13 @@ public class Login extends AppCompatActivity {
         if(res.startsWith("Error_404")){
             res = "Al parecer no existe el php buscado";
         }
-       if(res.startsWith("1")){
+        if(res.startsWith("1")){
             abrirPrincipal();
            //Toast.makeText(Login.this,"CORRECTO",Toast.LENGTH_LONG);
         }
         if(res.startsWith("0")){
-            Toast.makeText(Login.this,"Username y/o contraseña incorrectas",Toast.LENGTH_LONG);
+            alert.setTitle("Error de autenticacion").setMessage("Username y/o contraseña incorrectas").show();
+            //Toast.makeText(Login.this,"Username y/o contraseña incorrectas",Toast.LENGTH_LONG);
         }
 
 
