@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.regex.Pattern;
 
 public class Login extends AppCompatActivity {
     //algo mas bebe te amo :*
@@ -37,18 +39,23 @@ public class Login extends AppCompatActivity {
         entrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextUtils.isEmpty(alias.getText().toString())){
+                if (TextUtils.isEmpty(alias.getText().toString())) {
                     alias.requestFocus();
                     alias.setError("Usuario no puede ser vacio");
                     return;
                 }
-                if (TextUtils.isEmpty(contra.getText().toString())){
+                if (TextUtils.isEmpty(contra.getText().toString())) {
                     contra.requestFocus();
                     contra.setError("Contraseña no puede ser vacio");
                     return;
-                }else {
+                }
+                if (!(Pattern.compile("^[a-zA-Z0-9_]+$").matcher(alias.getText().toString()).matches())) {
+                    alias.requestFocus();
+                    alias.setError("Usuario no puedo contener espacios o caracteres especiales.");
+                } else
+                 {
                     ConexionWeb conexionWeb = new ConexionWeb(Login.this);
-                    conexionWeb.agregarVariables("usuario", alias.getText().toString());
+                    conexionWeb.agregarVariables("usuario", alias.getText().toString().toLowerCase());
                     conexionWeb.agregarVariables("contra", contra.getText().toString());
                     try {
                         URL url = new URL("http://gameofarrows.ueuo.com/GameOfArrows/login.php");
@@ -67,6 +74,7 @@ public class Login extends AppCompatActivity {
                 abrirRegistro();
             }
         });
+
 
         Typeface f = Typeface.createFromAsset(getAssets(),"GOT.ttf");
         alias.setTypeface(f);
@@ -98,8 +106,9 @@ public class Login extends AppCompatActivity {
            //Toast.makeText(Login.this,"CORRECTO",Toast.LENGTH_LONG);
         }
         if(res.startsWith("0")){
-            alert.setTitle("Error de autenticacion").setMessage("Username y/o contraseña incorrectas").show();
-            //Toast.makeText(Login.this,"Username y/o contraseña incorrectas",Toast.LENGTH_LONG);
+            //alert.setTitle("Error de autenticacion").setMessage("Username y/o contraseña incorrectas").show();
+            Toast.makeText(Login.this,"Username y/o contraseña incorrectas",Toast.LENGTH_LONG).show();
+            alias.requestFocus();
         }
 
 

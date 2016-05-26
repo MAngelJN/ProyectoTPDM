@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 public class PantallaRegistro extends AppCompatActivity {
 
@@ -63,10 +64,14 @@ public class PantallaRegistro extends AppCompatActivity {
                     cel2.setError("El Numero telefonico no puede ser vacio");
                     return;
                 }
+                if (!(Pattern.compile("^[a-zA-Z0-9_]+$").matcher(alias.getText().toString()).matches())) {
+                    alias.requestFocus();
+                    alias.setError("Usuario no puedo contener espacios o caracteres especiales.");
+                }
                 if(cel.getText().toString().equals(cel2.getText().toString())){
                     ConexionWeb conexionWeb = new ConexionWeb(PantallaRegistro.this);
                     conexionWeb.agregarVariables("nombre", nombre.getText().toString());
-                    conexionWeb.agregarVariables("username", alias.getText().toString());
+                    conexionWeb.agregarVariables("username", alias.getText().toString().toLowerCase());
                     conexionWeb.agregarVariables("cel", cel.getText().toString());
 
                     generarPassword(6);
@@ -95,10 +100,12 @@ public class PantallaRegistro extends AppCompatActivity {
         long m = new java.util.GregorianCalendar().getTimeInMillis();
         Random r = new Random(m);
         char c;
-        for (int i=0;i<l;i++){
+        int i=0;
+        while(i<l) {
             c = (char)r.nextInt(255);
             if ((c >= '0' && c <= '9') || (c >='A' && c <='Z') ){
                 pW += c;
+                i++;
             }
         }
     }
@@ -129,16 +136,16 @@ public class PantallaRegistro extends AppCompatActivity {
             alias.setText("");
             cel.setText("");
             cel2.setText("");
-            Toast.makeText(PantallaRegistro.this, "Usuario registrado. A la brevedad recivira un mensaje con su informacion", Toast.LENGTH_LONG);
-            //PantallaRegistro.this.finish();
+            Toast.makeText(PantallaRegistro.this, "Usuario registrado. A la brevedad recivira un mensaje con su informacion", Toast.LENGTH_LONG).show();
+            PantallaRegistro.this.finish();
         }
         if(res.startsWith("No insertado")){
             //alert.setTitle("Error al registrar").setMessage("Intentalo mas tarde").show();
-            Toast.makeText(PantallaRegistro.this,"Error al insertar. Intentalo más tarde.",Toast.LENGTH_LONG);
+            Toast.makeText(PantallaRegistro.this,"Error al insertar. Intentalo más tarde.",Toast.LENGTH_LONG).show();
         }
 
 
-        alert.setTitle("Respuesta desde servidor")
+        /*alert.setTitle("Respuesta desde servidor")
                 .setMessage(res)
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
@@ -146,7 +153,7 @@ public class PantallaRegistro extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 })
-                .show();
+                .show();*/
 
     }
 }
