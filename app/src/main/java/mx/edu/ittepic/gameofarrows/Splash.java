@@ -51,7 +51,7 @@ public class Splash extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                tec.setAlpha(0.0f);
+                tec.startAnimation(animation2);
             }
 
             @Override

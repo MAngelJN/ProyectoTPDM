@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,14 +37,25 @@ public class Login extends AppCompatActivity {
         entrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConexionWeb conexionWeb = new ConexionWeb(Login.this);
-                conexionWeb.agregarVariables("usuario",alias.getText().toString());
-                conexionWeb.agregarVariables("contra",contra.getText().toString());
-                try {
-                    URL url = new URL("http://gameofarrows.ueuo.com/GameOfArrows/login.php");
-                    conexionWeb.execute(url);
-                }catch (MalformedURLException e){
-                    new AlertDialog.Builder(Login.this).setMessage(e.getMessage()).setTitle("Error").show();
+                if(TextUtils.isEmpty(alias.getText().toString())){
+                    alias.requestFocus();
+                    alias.setError("Usuario no puede ser vacio");
+                    return;
+                }
+                if (TextUtils.isEmpty(contra.getText().toString())){
+                    contra.requestFocus();
+                    contra.setError("Contraseña no puede ser vacio");
+                    return;
+                }else {
+                    ConexionWeb conexionWeb = new ConexionWeb(Login.this);
+                    conexionWeb.agregarVariables("usuario", alias.getText().toString());
+                    conexionWeb.agregarVariables("contra", contra.getText().toString());
+                    try {
+                        URL url = new URL("http://gameofarrows.ueuo.com/GameOfArrows/login.php");
+                        conexionWeb.execute(url);
+                    } catch (MalformedURLException e) {
+                        new AlertDialog.Builder(Login.this).setMessage(e.getMessage()).setTitle("Error").show();
+                    }
                 }
 
             }
@@ -81,6 +93,8 @@ public class Login extends AppCompatActivity {
         }
         if(res.startsWith("1")){
             abrirPrincipal();
+            alias.setText("");
+            contra.setText("");
            //Toast.makeText(Login.this,"CORRECTO",Toast.LENGTH_LONG);
         }
         if(res.startsWith("0")){
