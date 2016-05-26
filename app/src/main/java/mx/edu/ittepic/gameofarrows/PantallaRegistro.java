@@ -1,13 +1,16 @@
 package mx.edu.ittepic.gameofarrows;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -60,9 +63,9 @@ public class PantallaRegistro extends AppCompatActivity {
                     cel2.setError("El Numero telefonico no puede ser vacio");
                     return;
                 }
-                if(cel.equals(cel2)){
-                    /*ConexionWeb conexionWeb = new ConexionWeb(PantallaRegistro.this);
-                    conexionWeb.agregarVariables("nombre",nombre.getText().toString());
+                if(cel.getText().toString().equals(cel2.getText().toString())){
+                    ConexionWeb conexionWeb = new ConexionWeb(PantallaRegistro.this);
+                    conexionWeb.agregarVariables("nombre", nombre.getText().toString());
                     conexionWeb.agregarVariables("username", alias.getText().toString());
                     conexionWeb.agregarVariables("cel", cel.getText().toString());
 
@@ -70,12 +73,14 @@ public class PantallaRegistro extends AppCompatActivity {
 
                     conexionWeb.agregarVariables("contra", pW);
 
+
                     try {
                         URL url = new URL("http://gameofarrows.ueuo.com/GameOfArrows/registrar.php");
                         conexionWeb.execute(url);
                     }catch (MalformedURLException e){
                         new AlertDialog.Builder(PantallaRegistro.this).setMessage(e.getMessage()).setTitle("Error").show();
-                    }*/
+                    }
+
                 }else{
                     cel.requestFocus();
                     cel.setError("Los numeros telefonicos no coinciden");
@@ -96,5 +101,52 @@ public class PantallaRegistro extends AppCompatActivity {
                 pW += c;
             }
         }
+    }
+    public void resultado(String res){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+
+
+        if(res.startsWith("Error_404_2")){
+            res = "Error al enviar o recibir informacion con el php";
+        }
+        if(res.startsWith("Error_404_1")){
+            res = "Hosting no encontrado";
+        }
+        if(res.startsWith("Error_404")){
+            res = "Al parecer no existe el php buscado";
+        }
+        if(res.startsWith("Insertado")){
+            //MANDAR MENSAJE DE TEXTO
+            SmsManager enviarSMS = SmsManager.getDefault();
+
+            enviarSMS.sendTextMessage(cel.getText().toString(), null, "¡Game Of Arrows te da la bienvenida, " +
+                    nombre.getText().toString() + "!\n Usuario: " + alias.getText().toString() +
+                    "\n Contraseña: " + pW, null, null);
+
+            //Toast.makeText(PantallaRegistro.this, "Mensaje Enviado", Toast.LENGTH_SHORT).show();
+            nombre.setText("");
+            alias.setText("");
+            cel.setText("");
+            cel2.setText("");
+            Toast.makeText(PantallaRegistro.this, "Usuario registrado. A la brevedad recivira un mensaje con su informacion", Toast.LENGTH_LONG);
+            //PantallaRegistro.this.finish();
+        }
+        if(res.startsWith("No insertado")){
+            //alert.setTitle("Error al registrar").setMessage("Intentalo mas tarde").show();
+            Toast.makeText(PantallaRegistro.this,"Error al insertar. Intentalo más tarde.",Toast.LENGTH_LONG);
+        }
+
+
+        alert.setTitle("Respuesta desde servidor")
+                .setMessage(res)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+
     }
 }

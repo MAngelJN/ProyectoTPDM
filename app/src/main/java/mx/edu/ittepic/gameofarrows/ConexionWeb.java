@@ -98,7 +98,7 @@ public class ConexionWeb extends AsyncTask<URL,String,String> {
             login.resultado(s);
         }
         if (!(registro==null)){
-
+            registro.resultado(s);
         }
 
     }
