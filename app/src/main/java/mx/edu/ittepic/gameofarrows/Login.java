@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,6 +21,7 @@ public class Login extends AppCompatActivity {
     ImageView entrar,logo;
     EditText alias, contra;
     TextView registro;
+    String respuesta;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +46,6 @@ public class Login extends AppCompatActivity {
                     new AlertDialog.Builder(Login.this).setMessage(e.getMessage()).setTitle("Error").show();
                 }
 
-                //abrirPrincipal();
             }
         });
 
@@ -64,8 +65,10 @@ public class Login extends AppCompatActivity {
     public void abrirRegistro(){startActivity(new Intent(this,PantallaRegistro.class));}
     public void abrirPrincipal(){startActivity(new Intent(this,Principal.class));}
 
-    public void mostrarResultado(String res){
+    public void resultado(String res){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+
 
         if(res.startsWith("Error_404_2")){
             res = "Error al enviar o recibir informacion con el php";
@@ -75,6 +78,13 @@ public class Login extends AppCompatActivity {
         }
         if(res.startsWith("Error_404")){
             res = "Al parecer no existe el php buscado";
+        }
+       if(res.startsWith("1")){
+            abrirPrincipal();
+           //Toast.makeText(Login.this,"CORRECTO",Toast.LENGTH_LONG);
+        }
+        if(res.startsWith("0")){
+            Toast.makeText(Login.this,"Username y/o contraseña incorrectas",Toast.LENGTH_LONG);
         }
 
 

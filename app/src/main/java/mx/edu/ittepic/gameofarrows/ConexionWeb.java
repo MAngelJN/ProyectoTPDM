@@ -89,6 +89,6 @@ public class ConexionWeb extends AsyncTask<URL,String,String> {
     }
     protected void onPostExecute(String s){
         super.onPostExecute(s);
-        login.mostrarResultado(s);
+        login.resultado(s);
     }
 }
