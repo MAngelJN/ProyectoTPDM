@@ -32,7 +32,7 @@ public class PantallaRegistro extends AppCompatActivity {
         alias = (EditText) findViewById(R.id.fuente);
         cel = (EditText) findViewById(R.id.editText4);
         cel2 = (EditText) findViewById(R.id.editText5);
-        img2 = (ImageView) findViewById(R.id.imageView);
+        //img2 = (ImageView) findViewById(R.id.imageView);
         imgR = (ImageView) findViewById(R.id.imageView2);
         Typeface f = Typeface.createFromAsset(getAssets(),"GOT.ttf");
         nombre.setTypeface(f);
