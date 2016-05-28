@@ -16,7 +16,7 @@ public class Principal extends AppCompatActivity {
     ImageView logo,img6,img7,img8,opciones;
     Switch sonido;
     MediaPlayer mp;
-    Login pincheTapiaTonto;
+    //Login pincheTapiaTonto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +27,9 @@ public class Principal extends AppCompatActivity {
         img8 = (ImageView) findViewById(R.id.imageView8);
         opciones = (ImageView) findViewById(R.id.imageView9);
         sonido = (Switch) findViewById(R.id.switch1);
-        //mp = MediaPlayer.create(this, R.raw.musica);
+        mp = MediaPlayer.create(this, R.raw.musica);
         //mp.start();
-        pincheTapiaTonto = new Login();
+        //pincheTapiaTonto = new Login();
 
         Typeface f = Typeface.createFromAsset(getAssets(),"GOT.ttf");
         sonido.setTypeface(f);
@@ -40,6 +40,7 @@ public class Principal extends AppCompatActivity {
                 abrirOpciones();
             }
         });
+
 
         if(sonido.isChecked()){
             if(!mp.isPlaying()){

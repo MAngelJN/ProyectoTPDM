@@ -27,6 +27,7 @@ public class Login extends AppCompatActivity {
     TextView registro, con;
     String respuesta;
     MediaPlayer mp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +89,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void abrirRegistro(){startActivity(new Intent(this,PantallaRegistro.class));}
-    public void abrirPrincipal(){startActivity(new Intent(this,Principal.class));}
+    public void abrirPrincipal(){startActivity(new Intent(this,Principal.class));mp.pause();}
 
     public void resultado(String res){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -128,4 +129,5 @@ public class Login extends AppCompatActivity {
                 .show();*/
 
     }
+
 }

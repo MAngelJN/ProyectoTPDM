@@ -136,7 +136,7 @@ public class PantallaRegistro extends AppCompatActivity {
             alias.setText("");
             cel.setText("");
             cel2.setText("");
-            Toast.makeText(PantallaRegistro.this, "Usuario registrado. A la brevedad recivira un mensaje con su informacion", Toast.LENGTH_LONG).show();
+            Toast.makeText(PantallaRegistro.this, "Usuario registrado. A la brevedad recibirá un mensaje con su información", Toast.LENGTH_LONG).show();
             PantallaRegistro.this.finish();
         }
         if(res.startsWith("No insertado")){
