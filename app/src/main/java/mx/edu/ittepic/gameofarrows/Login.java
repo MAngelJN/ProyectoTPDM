@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -23,18 +24,22 @@ public class Login extends AppCompatActivity {
 
     ImageView entrar,logo;
     EditText alias, contra;
-    TextView registro;
+    TextView registro, con;
     String respuesta;
+    MediaPlayer mp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        logo = (ImageView) findViewById(R.id.imageView3);
         entrar = (ImageView) findViewById(R.id.imageView4);
         alias = (EditText) findViewById(R.id.editText);
         contra = (EditText) findViewById(R.id.editText2);
         registro = (TextView) findViewById(R.id.textView);
+        con = (TextView) findViewById(R.id.textView2);
+        mp = MediaPlayer.create(this, R.raw.musica);
+        mp.start();
 
         entrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,10 +85,11 @@ public class Login extends AppCompatActivity {
         alias.setTypeface(f);
         contra.setTypeface(f);
         registro.setTypeface(f);
+        con.setTypeface(f);
     }
 
     public void abrirRegistro(){startActivity(new Intent(this,PantallaRegistro.class));}
-    public void abrirPrincipal(){startActivity(new Intent(this,Principal.class));}
+    public void abrirPrincipal(){startActivity(new Intent(this,Principal.class));mp.pause();}
 
     public void resultado(String res){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -123,4 +129,5 @@ public class Login extends AppCompatActivity {
                 .show();*/
 
     }
+
 }

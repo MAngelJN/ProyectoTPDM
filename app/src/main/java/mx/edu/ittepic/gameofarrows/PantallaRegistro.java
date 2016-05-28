@@ -32,7 +32,7 @@ public class PantallaRegistro extends AppCompatActivity {
         alias = (EditText) findViewById(R.id.fuente);
         cel = (EditText) findViewById(R.id.editText4);
         cel2 = (EditText) findViewById(R.id.editText5);
-        img2 = (ImageView) findViewById(R.id.imageView);
+        //img2 = (ImageView) findViewById(R.id.imageView);
         imgR = (ImageView) findViewById(R.id.imageView2);
         Typeface f = Typeface.createFromAsset(getAssets(),"GOT.ttf");
         nombre.setTypeface(f);
@@ -136,7 +136,7 @@ public class PantallaRegistro extends AppCompatActivity {
             alias.setText("");
             cel.setText("");
             cel2.setText("");
-            Toast.makeText(PantallaRegistro.this, "Usuario registrado. A la brevedad recivira un mensaje con su informacion", Toast.LENGTH_LONG).show();
+            Toast.makeText(PantallaRegistro.this, "Usuario registrado. A la brevedad recibirá un mensaje con su información", Toast.LENGTH_LONG).show();
             PantallaRegistro.this.finish();
         }
         if(res.startsWith("No insertado")){
