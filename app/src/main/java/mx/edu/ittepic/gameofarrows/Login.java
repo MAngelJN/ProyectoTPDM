@@ -89,7 +89,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void abrirRegistro(){startActivity(new Intent(this,PantallaRegistro.class));}
-    public void abrirPrincipal(){startActivity(new Intent(this,Principal.class));mp.pause();}
+    public void abrirPrincipal(){startActivity(new Intent(this,Principal.class).putExtra("user",alias.getText().toString()));mp.pause();}
 
     public void resultado(String res){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -106,6 +106,7 @@ public class Login extends AppCompatActivity {
             res = "Al parecer no existe el php buscado";
         }
         if(res.startsWith("1")){
+
             abrirPrincipal();
             alias.setText("");
             contra.setText("");

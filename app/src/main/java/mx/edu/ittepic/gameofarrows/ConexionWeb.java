@@ -22,6 +22,7 @@ public class ConexionWeb extends AsyncTask<URL,String,String> {
     List<String[]> variables;
     Login login;
     PantallaRegistro registro;
+    Opciones opciones;
 
     public ConexionWeb(Login l){
         variables = new ArrayList<String[]>();
@@ -30,6 +31,10 @@ public class ConexionWeb extends AsyncTask<URL,String,String> {
     public ConexionWeb(PantallaRegistro pR){
         variables = new ArrayList<String[]>();
         registro=pR;
+    }
+    public ConexionWeb(Opciones o){
+        variables = new ArrayList<String[]>();
+        opciones = o;
     }
     public void agregarVariables(String id,String dato){
         String[] temp = {id,dato};
@@ -100,6 +105,8 @@ public class ConexionWeb extends AsyncTask<URL,String,String> {
         if (!(registro==null)){
             registro.resultado(s);
         }
-
+        if(!(opciones==null)){
+            registro.resultado(s);
+        }
     }
 }

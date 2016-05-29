@@ -16,6 +16,7 @@ public class Principal extends AppCompatActivity {
     ImageView logo,img6,img7,img8,opciones;
     Switch sonido;
     MediaPlayer mp;
+    String username;
     //Login pincheTapiaTonto;
 
     @Override
@@ -28,6 +29,8 @@ public class Principal extends AppCompatActivity {
         opciones = (ImageView) findViewById(R.id.imageView9);
         sonido = (Switch) findViewById(R.id.switch1);
         mp = MediaPlayer.create(this, R.raw.musica);
+        Bundle b = getIntent().getExtras();
+        username = b.getString("user");
         //mp.start();
         //pincheTapiaTonto = new Login();
 
@@ -66,5 +69,5 @@ public class Principal extends AppCompatActivity {
 
     }
 
-    private void abrirOpciones(){startActivity(new Intent(this,Opciones.class));}
+    private void abrirOpciones(){startActivity(new Intent(this,Opciones.class).putExtra("user",username));}
 }
