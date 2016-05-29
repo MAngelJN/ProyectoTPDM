@@ -67,7 +67,15 @@ public class Principal extends AppCompatActivity {
             }
         });
 
+        img6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirNormal();
+            }
+        });
+
     }
 
     private void abrirOpciones(){startActivity(new Intent(this,Opciones.class).putExtra("user",username));}
+    private void abrirNormal(){startActivity(new Intent(this,Juego.class));}
 }
