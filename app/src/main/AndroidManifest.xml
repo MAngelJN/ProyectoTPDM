@@ -24,7 +24,8 @@
         <activity android:name=".PantallaRegistro" />
         <activity android:name=".Splash" />
         <activity android:name=".Opciones" />
-        <activity android:name=".Juego"></activity>
+        <activity android:name=".Juego"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

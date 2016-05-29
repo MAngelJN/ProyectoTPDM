@@ -37,7 +37,7 @@ public class Login extends AppCompatActivity {
         alias = (EditText) findViewById(R.id.editText);
         contra = (EditText) findViewById(R.id.editText2);
         registro = (TextView) findViewById(R.id.textView);
-        con = (TextView) findViewById(R.id.textView2);
+        //con = (TextView) findViewById(R.id.textView2);
         mp = MediaPlayer.create(this, R.raw.musica);
         mp.start();
 
@@ -57,8 +57,7 @@ public class Login extends AppCompatActivity {
                 if (!(Pattern.compile("^[a-zA-Z0-9_]+$").matcher(alias.getText().toString()).matches())) {
                     alias.requestFocus();
                     alias.setError("Usuario no puedo contener espacios o caracteres especiales.");
-                } else
-                 {
+                } else {
                     ConexionWeb conexionWeb = new ConexionWeb(Login.this);
                     conexionWeb.agregarVariables("usuario", alias.getText().toString().toLowerCase());
                     conexionWeb.agregarVariables("contra", contra.getText().toString());
@@ -85,7 +84,7 @@ public class Login extends AppCompatActivity {
         alias.setTypeface(f);
         contra.setTypeface(f);
         registro.setTypeface(f);
-        con.setTypeface(f);
+        //con.setTypeface(f);
     }
 
     public void abrirRegistro(){startActivity(new Intent(this,PantallaRegistro.class));}
