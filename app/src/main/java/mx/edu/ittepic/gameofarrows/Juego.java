@@ -18,17 +18,17 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class Juego extends AppCompatActivity {
 
     Lienzo lienzo;
     Bitmap flecha;
-    int x,y;
-    CountDownTimer t;
+    int x,y,x2,y2,izq,der,top,bot;
+    CountDownTimer t,t2;
     int alto;
     int ancho;
-    float densidad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +36,13 @@ public class Juego extends AppCompatActivity {
         //setContentView(R.layout.activity_juego);
         lienzo=new Lienzo(this);
         setContentView(lienzo);
-        x=y=100;
-        //ancho = lienzo.getWidth();
+        x=0;
+        y=300;
+        x2=0;
+        y2=10;
+        top=500;
+        izq=der=0;
+
         Display display = this.
                 getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -65,10 +70,9 @@ public class Juego extends AppCompatActivity {
                 //x+=2;
                 //y--;
                 //Toast.makeText(Juego.this,"Ancho"+ancho+"\n"+"anchoflecha"+flecha.getWidth(),Toast.LENGTH_SHORT).show();
-                System.out.println("Ancho"+ancho+"\n"+"anchoflecha"+flecha.getWidth()+"\n"+"ancho x"+x);
+                System.out.println("Alto"+alto+"\n"+"anchoflecha"+flecha.getWidth()+"\n"+"ancho x"+x);
                 if (!(x>=(ancho-flecha.getWidth()))){
-                    x+=2;
-                    System.out.println("Entro");
+                    x+=20;
                     t.cancel();}
                 lienzo.invalidate();
             }
@@ -77,6 +81,23 @@ public class Juego extends AppCompatActivity {
             public void onFinish() {
                 //t.start();
 
+
+            }
+        };
+
+        t2 = new CountDownTimer(500000,10) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (!(x2>=ancho)){
+                    x2+=2;
+                    t.cancel();
+                }
+                lienzo.invalidate();
+
+            }
+
+            @Override
+            public void onFinish() {
 
             }
         };
@@ -94,6 +115,8 @@ public class Juego extends AppCompatActivity {
 
         public void onDraw(Canvas c){
             Paint p = new Paint();
+            p.setColor(Color.BLUE);
+            c.drawRect(0, 10, x2,50, p);
             c.drawBitmap(flecha,x,y,p);
 
         }
@@ -105,7 +128,8 @@ public class Juego extends AppCompatActivity {
                 //cuando tocas la pantalla, en un View/Surface
                 x=(int)e.getX();
                 y=(int)e.getY();
-                t.start();
+                //t.start();
+                t2.start();
                 invalidate();
             }
             if(e.getAction()== MotionEvent.ACTION_MOVE){
@@ -115,6 +139,8 @@ public class Juego extends AppCompatActivity {
                 invalidate();
             }
             if(e.getAction()== MotionEvent.ACTION_UP){
+                t.start();
+                t2.cancel();
                 //cuando destocas la paantalla
 
             }
