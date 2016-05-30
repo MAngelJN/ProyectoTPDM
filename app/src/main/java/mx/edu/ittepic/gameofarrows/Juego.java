@@ -28,13 +28,16 @@ public class Juego extends AppCompatActivity {
     int x,y,x2,y2,izq,der,top,bot;
     CountDownTimer t,t2;
     int alto;
+    int potencia;
+    boolean arriba, abajo;
+
     int ancho;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_juego);
-        lienzo=new Lienzo(this);
+        lienzo = new Lienzo(this);
         setContentView(lienzo);
         x=0;
         y=300;
@@ -42,6 +45,10 @@ public class Juego extends AppCompatActivity {
         y2=10;
         top=500;
         izq=der=0;
+        potencia = 0;
+        arriba = true;
+        abajo = false;
+
 
         Display display = this.
                 getWindowManager().getDefaultDisplay();
@@ -51,7 +58,6 @@ public class Juego extends AppCompatActivity {
         // de pantalla, dependiendo de la version de android
         if(Build.VERSION.SDK_INT >=
                 Build.VERSION_CODES.HONEYCOMB_MR2){
-
             display.getSize(size);
             ancho = size.x;
             alto = size.y;
@@ -62,6 +68,10 @@ public class Juego extends AppCompatActivity {
             ancho = display.getWidth();
             alto = display.getHeight();
         }
+        y2=alto-110;
+        System.out.println("***************************ALTO************************* " + alto);
+        System.out.println("***************************ANCHO************************* " + ancho);
+
 
         flecha = BitmapFactory.decodeResource(getResources(),R.drawable.img12);
         t = new CountDownTimer(500000,10) {
@@ -70,10 +80,11 @@ public class Juego extends AppCompatActivity {
                 //x+=2;
                 //y--;
                 //Toast.makeText(Juego.this,"Ancho"+ancho+"\n"+"anchoflecha"+flecha.getWidth(),Toast.LENGTH_SHORT).show();
-                System.out.println("Alto"+alto+"\n"+"anchoflecha"+flecha.getWidth()+"\n"+"ancho x"+x);
+                //System.out.println("Alto"+alto+"\n"+"anchoflecha"+flecha.getWidth()+"\n"+"ancho x"+x);
                 if (!(x>=(ancho-flecha.getWidth()))){
                     x+=20;
-                    t.cancel();}
+                    //t.cancel();
+                }
                 lienzo.invalidate();
             }
 
@@ -88,14 +99,14 @@ public class Juego extends AppCompatActivity {
         t2 = new CountDownTimer(500000,10) {
             @Override
             public void onTick(long millisUntilFinished) {
-                if (!(x2>=ancho)){
-                    x2+=2;
+                if (y2>100){
+                    potencia++;
+                    y2-=10;
+                    System.out.println("****************************************************" + potencia);
                     t.cancel();
                 }
                 lienzo.invalidate();
-
             }
-
             @Override
             public void onFinish() {
 
@@ -104,8 +115,6 @@ public class Juego extends AppCompatActivity {
 
 
     }
-
-
 
     public class Lienzo extends View{
 
@@ -116,7 +125,7 @@ public class Juego extends AppCompatActivity {
         public void onDraw(Canvas c){
             Paint p = new Paint();
             p.setColor(Color.BLUE);
-            c.drawRect(0, 10, x2,50, p);
+            c.drawRect(10, y2, 50,alto-100, p);
             c.drawBitmap(flecha,x,y,p);
 
         }
@@ -126,23 +135,22 @@ public class Juego extends AppCompatActivity {
 
             if(e.getAction()== MotionEvent.ACTION_DOWN){
                 //cuando tocas la pantalla, en un View/Surface
-                x=(int)e.getX();
+                //x=(int)e.getX();
                 y=(int)e.getY();
-                //t.start();
+                t.cancel();
                 t2.start();
                 invalidate();
             }
             if(e.getAction()== MotionEvent.ACTION_MOVE){
                 //Se ejecuta cuando arrastras
-                x=(int)e.getX();
+                //x=(int)e.getX();
                 y=(int)e.getY();
                 invalidate();
             }
             if(e.getAction()== MotionEvent.ACTION_UP){
-                t.start();
                 t2.cancel();
+                t.start();
                 //cuando destocas la paantalla
-
             }
             return true;
         }
