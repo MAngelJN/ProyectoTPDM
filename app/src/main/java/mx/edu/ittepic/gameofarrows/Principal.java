@@ -47,7 +47,7 @@ public class Principal extends AppCompatActivity {
 
         if(sonido.isChecked()){
             if(!mp.isPlaying()){
-                mp.start();
+                //mp.start();
             }
         }
         else {
@@ -60,7 +60,7 @@ public class Principal extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    mp.start();
+                    //mp.start();
                 }else{
                     mp.pause();
                 }

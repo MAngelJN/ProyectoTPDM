@@ -107,6 +107,7 @@ public class Juego extends AppCompatActivity {
                 }else {
                     //La flecha ya choco, asi que los valores se restauran para que el siguiente turno empieze
                     userP = puntos();
+
                     cpuP = tiroComputadora();
                     viento = random.nextInt(100-50+1) + 50;//(max - min +1) + min
                     tiempo = 10;
