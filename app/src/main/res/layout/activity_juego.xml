@@ -9,7 +9,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="horizontal"
     tools:context="mx.edu.ittepic.gameofarrows.Juego"
-    android:background="#050505"
     android:weightSum="1">
 
     <ProgressBar

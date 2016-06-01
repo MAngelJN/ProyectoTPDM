@@ -20,10 +20,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Splash" />
-        <activity android:name=".PantallaRegistro" />
-        <activity android:name=".Principal" />
-        <activity android:name=".Opciones" />
+        <activity android:name=".Splash"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".PantallaRegistro"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Principal"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Opciones"
+            android:screenOrientation="landscape"/>
         <activity android:name=".Juego"
             android:screenOrientation="landscape"></activity>
     </application>

@@ -91,19 +91,8 @@ public class Login extends AppCompatActivity {
     public void abrirPrincipal(){startActivity(new Intent(this,Principal.class).putExtra("user",alias.getText().toString()));mp.pause();}
 
     public void resultado(String res){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        //AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-
-
-        if(res.startsWith("Error_404_2")){
-            res = "Error al enviar o recibir informacion con el php";
-        }
-        if(res.startsWith("Error_404_1")){
-            res = "Hosting no encontrado";
-        }
-        if(res.startsWith("Error_404")){
-            res = "Al parecer no existe el php buscado";
-        }
         if(res.startsWith("1")){
 
             abrirPrincipal();
