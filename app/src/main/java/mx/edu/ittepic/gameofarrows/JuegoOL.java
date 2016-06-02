@@ -27,13 +27,13 @@ import java.net.URL;
 import java.util.Random;
 
 public class JuegoOL extends AppCompatActivity {
-    ConexionWeb conexionWebl;
+    //ConexionWeb conexionWebl;
     EditText usuarioET;
     Lienzo lienzo;
     Bitmap flecha;
     int x,y,x2,y2,izq,der,top,yDiana;
     float xt;
-    CountDownTimer tiro,bPotencia,turno;
+    CountDownTimer tiro,bPotencia,turno, lectura;
     int alto, ancho, potencia, viento,elTurno;
     Random random;
     float tiempo;
@@ -48,7 +48,7 @@ public class JuegoOL extends AppCompatActivity {
         lienzo = new Lienzo(this);
         esMiTurno= false;
         setContentView(lienzo);
-        conexionWebl = new ConexionWeb(this);
+        //conexionWebl = new ConexionWeb(this);
         usuarioET = new EditText(JuegoOL.this);
         elTurno=0;
         userP= cpuP = 0;
@@ -131,10 +131,11 @@ public class JuegoOL extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
-                                        conexionWebl.agregarVariables("rem",usuarioET.getText().toString().toLowerCase());
-                                        conexionWebl.agregarVariables("user",username.toLowerCase()+"");
+                                        //conexionWebl.agregarVariables("rem",usuarioET.getText().toString().toLowerCase());
+                                        //conexionWebl.agregarVariables("user",username.toLowerCase()+"");
                                         dialog.dismiss();
                                         //INICIAR HILO PARA EMPEZAR A LEER DATOS
+                                        lectura.start();
                                     }
                                 }).show();
                     }
@@ -142,7 +143,25 @@ public class JuegoOL extends AppCompatActivity {
                         //.setView(image)
                 .show();
         flecha = BitmapFactory.decodeResource(getResources(), R.drawable.flecha);
+        lectura = new CountDownTimer(300000,100) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                ConexionWeb conexionWeb = new ConexionWeb(JuegoOL.this);
+                conexionWeb.agregarVariables("rem",usuarioET.getText().toString().toLowerCase());
+                conexionWeb.agregarVariables("user",username.toLowerCase()+"");
+                try {
+                    URL url = new URL("http://gameofarrows.ueuo.com/GameOfArrows/recibir.php");
+                    conexionWeb.execute(url);
+                } catch (MalformedURLException e) {
+                    new AlertDialog.Builder(JuegoOL.this).setMessage(e.getMessage()).setTitle("Error").show();
+                }
+            }
 
+            @Override
+            public void onFinish() {
+
+            }
+        };
         tiro = new CountDownTimer(15000,10) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -419,10 +438,11 @@ public class JuegoOL extends AppCompatActivity {
             String[] m = res.split("-");
             if(m[1].equals(username)){
                 esMiTurno=true;
+                Toast.makeText(this,"Es mi turno",Toast.LENGTH_SHORT);
             }
         }
-        if (res.startsWith("No insertado")){
-            //Toast.makeText(this,"No se inserto",Toast.LENGTH_SHORT).show();
+        if (res.startsWith("Fallo")){
+            Toast.makeText(this,"Hubo pedo",Toast.LENGTH_SHORT).show();
         }
         /*AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Respuesta desde servidor")
