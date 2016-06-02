@@ -46,12 +46,12 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 if (TextUtils.isEmpty(alias.getText().toString())) {
                     alias.requestFocus();
-                    alias.setError("Usuario no puede ser vacio");
+                    alias.setError("Usuario no puede ser vacío");
                     return;
                 }
                 if (TextUtils.isEmpty(contra.getText().toString())) {
                     contra.requestFocus();
-                    contra.setError("Contraseña no puede ser vacio");
+                    contra.setError("Contraseña no puede ser vacío");
                     return;
                 }
                 if (!(Pattern.compile("^[a-zA-Z0-9_]+$").matcher(alias.getText().toString()).matches())) {

@@ -35,7 +35,6 @@
         <activity
             android:name=".Juego"
             android:screenOrientation="landscape" />
-        <activity android:name=".Records"></activity>
         <activity android:name=".JuegoOL"></activity>
     </application>
 

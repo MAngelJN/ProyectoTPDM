@@ -92,7 +92,7 @@ public class Principal extends AppCompatActivity {
     private void abrirOpciones(){startActivity(new Intent(this,Opciones.class).putExtra("user",username));}
     private void abrirNormal(){startActivity(new Intent(this,Juego.class).putExtra("user",username));}
     private void abrirOnLine(){startActivity(new Intent(this,JuegoOL.class).putExtra("user",username));}
-    private void abrirRecords(){startActivity(new Intent(this, Records.class));}
+    private void abrirRecords(){startActivity(new Intent(this, Ranking.class));}
 
 
 }

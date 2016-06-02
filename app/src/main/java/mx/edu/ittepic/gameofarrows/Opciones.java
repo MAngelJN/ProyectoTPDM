@@ -43,11 +43,11 @@ public class Opciones extends AppCompatActivity {
             public void onClick(View v) {
                 if(TextUtils.isEmpty(ca.getText().toString())){
                     ca.requestFocus();
-                    ca.setError("Contraseña no puede ser vacio");
+                    ca.setError("Contraseña no puede ser vacío");
                 }
                 if(TextUtils.isEmpty(nc.getText().toString())){
                     nc.requestFocus();
-                    nc.setError("Contraseña no puede ser vacio");
+                    nc.setError("Contraseña no puede ser vacío");
                 }
                 if(TextUtils.isEmpty(nc2.getText().toString())){
                     nc2.requestFocus();
