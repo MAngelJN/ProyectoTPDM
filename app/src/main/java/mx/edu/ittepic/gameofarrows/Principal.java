@@ -80,10 +80,18 @@ public class Principal extends AppCompatActivity {
             }
         });
 
+        img7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirOnLine();
+            }
+        });
+
     }
 
     private void abrirOpciones(){startActivity(new Intent(this,Opciones.class).putExtra("user",username));}
     private void abrirNormal(){startActivity(new Intent(this,Juego.class).putExtra("user",username));}
+    private void abrirOnLine(){startActivity(new Intent(this,JuegoOL.class).putExtra("user",username));}
     private void abrirRecords(){startActivity(new Intent(this, Records.class));}
 
 

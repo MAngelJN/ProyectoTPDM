@@ -24,6 +24,7 @@ public class ConexionWeb extends AsyncTask<URL,String,String> {
     PantallaRegistro registro;
     Opciones opciones;
     Juego juego;
+    JuegoOL juegoOL;
 
     public ConexionWeb(Login l){
         variables = new ArrayList<String[]>();
@@ -32,6 +33,10 @@ public class ConexionWeb extends AsyncTask<URL,String,String> {
     public ConexionWeb(Juego j){
         variables = new ArrayList<String[]>();
         juego=j;
+    }
+    public ConexionWeb(JuegoOL jOL){
+        variables = new ArrayList<String[]>();
+        juegoOL=jOL;
     }
     public ConexionWeb(PantallaRegistro pR){
         variables = new ArrayList<String[]>();
@@ -115,6 +120,9 @@ public class ConexionWeb extends AsyncTask<URL,String,String> {
         }
         if(!(juego==null)){
             juego.resultado(s);
+        }
+        if (!(juegoOL==null)){
+            juegoOL.resultado(s);
         }
     }
 }

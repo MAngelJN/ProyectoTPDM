@@ -143,10 +143,10 @@ public class Juego extends AppCompatActivity {
                         //Toast.makeText(Juego.this,"It's Over :(",Toast.LENGTH_LONG).show();
                         ImageView image = new ImageView(Juego.this);
                         image.setImageResource(R.drawable.engrane);
-                        /*AlertDialog.Builder alert = new AlertDialog.Builder(Juego.this);
+                        AlertDialog.Builder alert = new AlertDialog.Builder(Juego.this);
                         alert.setTitle("Game Of Arrows")
                                 .setMessage("¿Quieres volver a jugar?")
-                                .setPositiveButton("Shi", new DialogInterface.OnClickListener() {
+                                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
@@ -154,7 +154,7 @@ public class Juego extends AppCompatActivity {
                                         userP = cpuP = 0;
                                     }
                                 })
-                                .setNegativeButton("Ño", new DialogInterface.OnClickListener() {
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.cancel();
@@ -162,7 +162,7 @@ public class Juego extends AppCompatActivity {
                                     }
                                 })
                                 //.setView(image)
-                                .show();*/
+                                .show();
                     }
                 }
                 lienzo.invalidate();
