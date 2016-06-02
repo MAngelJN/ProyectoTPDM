@@ -35,7 +35,10 @@
         <activity
             android:name=".Juego"
             android:screenOrientation="landscape" />
-        <activity android:name=".JuegoOL"></activity>
+        <activity
+            android:name=".JuegoOL"
+            android:screenOrientation="landscape"
+            />
     </application>
 
 </manifest>

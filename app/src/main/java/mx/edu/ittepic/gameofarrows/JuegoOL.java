@@ -46,7 +46,7 @@ public class JuegoOL extends AppCompatActivity {
         //setContentView(R.layout.activity_juego_ol);
         //setContentView(R.layout.activity_juego);
         lienzo = new Lienzo(this);
-        esMiTurno= false;
+        esMiTurno= true;
         setContentView(lienzo);
         //conexionWebl = new ConexionWeb(this);
         usuarioET = new EditText(JuegoOL.this);
@@ -106,9 +106,11 @@ public class JuegoOL extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         ConexionWeb conexionWeb = new ConexionWeb(JuegoOL.this);
-                                        conexionWeb.agregarVariables("des",usuarioET.getText().toString().toLowerCase());
+                                        conexionWeb.agregarVariables("des",usuarioET.getText().toString().toLowerCase()+"");
                                         conexionWeb.agregarVariables("rem",username.toLowerCase()+"");
                                         conexionWeb.agregarVariables("mensaje",username+"");
+                                        System.out.println("**************************" + usuarioET.getText().toString() + "****");
+                                        System.out.println("**************************"+username+"****");
                                         try {
                                             URL url = new URL("http://gameofarrows.ueuo.com/GameOfArrows/enviar.php");
                                             conexionWeb.execute(url);
@@ -195,8 +197,9 @@ public class JuegoOL extends AppCompatActivity {
                         new AlertDialog.Builder(JuegoOL.this).setMessage(e.getMessage()).setTitle("Error").show();
                     }
                     esMiTurno=false;
+                    tiro.cancel();
                     userP = userP + puntos();
-                    cpuP = cpuP + tiroComputadora();
+                    //cpuP = cpuP + tiroComputadora();
                     viento = random.nextInt(100-10+1) + 10;//(max - min +1) + min
                     if(random.nextInt(10-2+1)+2>=6){
                         //vientoDirecion=true;
@@ -316,15 +319,15 @@ public class JuegoOL extends AppCompatActivity {
             //System.out.println("--------------------------------------------------------------------------------------"+ BitmapFactory.decodeResource(getResources(), R.drawable.d).getWidth());
         }
 
-        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        //@TargetApi(Build.VERSION_CODES.LOLLIPOP)
         public void onDraw(Canvas c){
             Paint p = new Paint();
             p.setColor(Color.RED);
-            c.drawRoundRect(ancho - 50, y2, ancho - 10, alto - 100, 20f, 20f, p);//POTENCIA9
+            c.drawRect(ancho - 50, y2, ancho - 10, alto - 100, p);//POTENCIA9
             p.setColor(Color.GRAY);
-            c.drawRoundRect(10, 10, 415, 50, 20f, 20.0f, p);
+            c.drawRect(10, 10, 415, 50, p);
             p.setColor(Color.LTGRAY);
-            c.drawRoundRect(10, 10, xt, 50, 20f, 20.0f, p);//Tiempo
+            c.drawRect(10, 10, xt, 50, p);//Tiempo
             c.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.d), ancho - 200,yDiana,p);//DIANA
             c.drawBitmap(flecha, x, y, p);
             if(viento<0){
@@ -354,6 +357,7 @@ public class JuegoOL extends AppCompatActivity {
 
         public boolean onTouchEvent(MotionEvent e){
             //e.getX y e.getY que corresponden a la coordenada tocada
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   "+esMiTurno);
             if (esMiTurno){
                 if(elTurno<3){
                     if(e.getAction()== MotionEvent.ACTION_DOWN){
@@ -436,13 +440,21 @@ public class JuegoOL extends AppCompatActivity {
         if(res.startsWith("msj")){
             //Toast.makeText(this,"Se inserto",Toast.LENGTH_SHORT).show();
             String[] m = res.split("-");
+            System.out.println("*********************************************"+m[1]);
             if(m[1].equals(username)){
                 esMiTurno=true;
                 Toast.makeText(this,"Es mi turno",Toast.LENGTH_SHORT);
+            }else{
+                esMiTurno=false;
             }
         }
-        if (res.startsWith("Fallo")){
-            Toast.makeText(this,"Hubo pedo",Toast.LENGTH_SHORT).show();
+        if (res.startsWith("Fallo r")){
+            //Toast.makeText(this,"Hubo pedo",Toast.LENGTH_SHORT).show();
+            System.out.println("*********************************************  Error en RECIBIR");
+        }
+        if (res.startsWith("Fallo e")){
+            //Toast.makeText(this,"Hubo pedo",Toast.LENGTH_SHORT).show();
+            System.out.println("*********************************************  Error en Enviar");
         }
         /*AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Respuesta desde servidor")
