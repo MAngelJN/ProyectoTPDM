@@ -26,6 +26,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Random;
 
 public class Juego extends AppCompatActivity {
@@ -58,7 +60,7 @@ public class Juego extends AppCompatActivity {
         potencia = 0;
         random = new Random();
         viento = random.nextInt(100-50+1) + 50;//(max - min +1) + min
-        if(random.nextInt(10+1)<5){viento= viento*-1;}
+        if(random.nextInt(10-2+1)+2<6){viento= viento*-1;}
         wind = viento/10+"";
         tiempo = 10;
         direccion = true;
@@ -118,7 +120,7 @@ public class Juego extends AppCompatActivity {
                     userP = userP + puntos();
                     cpuP = cpuP + tiroComputadora();
                     viento = random.nextInt(100-10+1) + 10;//(max - min +1) + min
-                    if(random.nextInt(10+1)>=5){
+                    if(random.nextInt(10-2+1)+2>=6){
                         //vientoDirecion=true;
                         wind = viento/10+"";
                     }else{
@@ -137,28 +139,30 @@ public class Juego extends AppCompatActivity {
                     tiro.cancel();
                     elTurno++;
                     if(elTurno>=3){
-                        Toast.makeText(Juego.this,"It's Over :(",Toast.LENGTH_LONG).show();
+                        enviarPuntos();
+                        //Toast.makeText(Juego.this,"It's Over :(",Toast.LENGTH_LONG).show();
                         ImageView image = new ImageView(Juego.this);
                         image.setImageResource(R.drawable.engrane);
-                        AlertDialog.Builder alert = new AlertDialog.Builder(Juego.this);
+                        /*AlertDialog.Builder alert = new AlertDialog.Builder(Juego.this);
                         alert.setTitle("Game Of Arrows")
                                 .setMessage("¿Quieres volver a jugar?")
                                 .setPositiveButton("Shi", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        dialog.cancel();
-                                        elTurno = 0;
+                                        dialog.dismiss();
+                                        elTurno=0;
+                                        userP = cpuP = 0;
                                     }
                                 })
                                 .setNegativeButton("Ño", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
+                                        dialog.cancel();
                                         Juego.this.finish();
                                     }
                                 })
                                 //.setView(image)
-                                .show();
+                                .show();*/
                     }
                 }
                 lienzo.invalidate();
@@ -204,7 +208,7 @@ public class Juego extends AppCompatActivity {
                 if(tiempo>=0){
                     tiempo-=0.1;
                     xt-=5;
-                    System.out.println("****************************************************" + xt);
+                    //System.out.println("****************************************************" + xt);
                 }
             }
 
@@ -238,14 +242,11 @@ public class Juego extends AppCompatActivity {
         public void onDraw(Canvas c){
             Paint p = new Paint();
             p.setColor(Color.RED);
-            //c.drawRoundRect(ancho - 50, y2, ancho - 10, alto - 100, 20f, 20f, p);//POTENCIA9
-            c.drawRect(ancho - 50, y2, ancho - 10, alto - 100, p);//POTENCIA9
+            c.drawRoundRect(ancho - 50, y2, ancho - 10, alto - 100, 20f, 20f, p);//POTENCIA9
             p.setColor(Color.GRAY);
-            //c.drawRoundRect(10, 10, 415, 50, 20f, 20.0f, p);
-            c.drawRect(10, 10, 415, 50,p);
+            c.drawRoundRect(10, 10, 415, 50, 20f, 20.0f, p);
             p.setColor(Color.LTGRAY);
-            //c.drawRoundRect(10, 10, xt, 50, 20f, 20.0f, p);//Tiempo
-            c.drawRect(10, 10, xt, 50,p);
+            c.drawRoundRect(10, 10, xt, 50, 20f, 20.0f, p);//Tiempo
             c.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.d), ancho - 200,yDiana,p);//DIANA
             c.drawBitmap(flecha, x, y, p);
             if(viento<0){
@@ -314,19 +315,19 @@ public class Juego extends AppCompatActivity {
         return random.nextInt(10-5+1) + 5;//(max - min +1) + min
     }
     public int puntos(){
-        if(y>=yDiana && y<yDiana+30 || y>=yDiana+270 && yDiana<=300){
+        if(y>=yDiana && y<yDiana+30 || y>=yDiana+270 && y<yDiana+300){
             Toast.makeText(this,"!Uuuuh!",Toast.LENGTH_SHORT).show();
             return 2;
         }
-        if(y>=yDiana+30 && y<yDiana+60 || y>=yDiana+240 && yDiana<270){
+        if(y>=yDiana+30 && y<yDiana+60 || y>=yDiana+240 && y<yDiana+270){
             Toast.makeText(this,"¡Mal tiro!",Toast.LENGTH_SHORT).show();
             return 4;
         }
-        if(y>=yDiana+60 && y<yDiana+90 || y>=yDiana+210 && yDiana<240){
+        if(y>=yDiana+60 && y<yDiana+90 || y>=yDiana+210 && y<yDiana+240){
             Toast.makeText(this,"¡No esta mal!",Toast.LENGTH_SHORT).show();
             return 6;
         }
-        if(y>=yDiana+90 && y<yDiana+120 || y>=yDiana+180 && yDiana<210){
+        if(y>=yDiana+90 && y<yDiana+120 || y>=yDiana+180 && y<yDiana+210){
             Toast.makeText(this,"¡Bien!",Toast.LENGTH_SHORT).show();
             return 8;
         }
@@ -336,5 +337,38 @@ public class Juego extends AppCompatActivity {
         }
         Toast.makeText(this,"¡Hay mucho que mejorar!",Toast.LENGTH_SHORT).show();
         return 0;
+    }
+
+    public void enviarPuntos(){
+        ConexionWeb conexionWeb = new ConexionWeb(Juego.this);
+        conexionWeb.agregarVariables("user", username.toLowerCase()+"");
+        conexionWeb.agregarVariables("puntos", userP+"");
+        //System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~" + userP);
+        //System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~" + username.toLowerCase());
+        try {
+            URL url = new URL("http://gameofarrows.ueuo.com/GameOfArrows/puntos.php");
+            conexionWeb.execute(url);
+        } catch (MalformedURLException e) {
+            new AlertDialog.Builder(this).setMessage(e.getMessage()).setTitle("Error").show();
+        }
+    }
+
+    public void resultado(String res){
+        if(res.startsWith("Insertado")){
+            //Toast.makeText(this,"Se inserto",Toast.LENGTH_SHORT).show();
+        }
+        if (res.startsWith("No insertado")){
+            //Toast.makeText(this,"No se inserto",Toast.LENGTH_SHORT).show();
+        }
+        /*AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Respuesta desde servidor")
+                .setMessage(res)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();*/
     }
 }
