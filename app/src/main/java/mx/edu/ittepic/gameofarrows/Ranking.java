@@ -5,43 +5,42 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class Records extends AppCompatActivity {
+public class Ranking extends AppCompatActivity {
 
     ConexionBD bd;
     ListView lista;
     ArrayAdapter<String> adapter;
     ArrayList<String> arrayList;
     itemAdapter adaptador;
+    ImageView fondo;
 
     int[] imagenes = {
             R.drawable.usu
     };
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_records);
-        lista = (ListView) findViewById(R.id.listView);
+        setContentView(R.layout.activity_ranking);
+        lista = (ListView) findViewById(R.id.listView2);
+        Typeface f = Typeface.createFromAsset(getAssets(),"GOT.ttf");
+
 
         bd = new ConexionBD(this,"GAMEOFARROWS",null,1);
 
 
 
         arrayList = new ArrayList<String>();
-
-
         buscar();
     }
 
@@ -60,11 +59,12 @@ public class Records extends AppCompatActivity {
                 adaptador = new itemAdapter(this, arrayList, imagenes);
 
                 //lista.setAdapter(adapter);
+
                 lista.setAdapter(adaptador);
                 base.close();
-                }else{
-                    Toast.makeText(Records.this, "No se encontró ranking de jugadores", Toast.LENGTH_SHORT).show();
-                }
+            }else{
+                Toast.makeText(Ranking.this, "No se encontró ranking de jugadores", Toast.LENGTH_SHORT).show();
+            }
 
             base.close();
         }catch(SQLiteException sqle){

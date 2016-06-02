@@ -316,7 +316,7 @@ public class Juego extends AppCompatActivity {
     }
     public int puntos(){
         if(y>=yDiana && y<yDiana+30 || y>=yDiana+270 && y<yDiana+300){
-            Toast.makeText(this,"!Uuuuh!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"!Tienes que acertar a la diana!",Toast.LENGTH_SHORT).show();
             return 2;
         }
         if(y>=yDiana+30 && y<yDiana+60 || y>=yDiana+240 && y<yDiana+270){
@@ -324,15 +324,15 @@ public class Juego extends AppCompatActivity {
             return 4;
         }
         if(y>=yDiana+60 && y<yDiana+90 || y>=yDiana+210 && y<yDiana+240){
-            Toast.makeText(this,"¡No esta mal!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"¡No está mal!",Toast.LENGTH_SHORT).show();
             return 6;
         }
         if(y>=yDiana+90 && y<yDiana+120 || y>=yDiana+180 && y<yDiana+210){
-            Toast.makeText(this,"¡Bien!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"¡Buen tiro!",Toast.LENGTH_SHORT).show();
             return 8;
         }
         if(y>=yDiana+120 && y<yDiana+180){
-            Toast.makeText(this,"¡Exelente!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"¡Excelente tiro!",Toast.LENGTH_SHORT).show();
             return 10;
         }
         Toast.makeText(this,"¡Hay mucho que mejorar!",Toast.LENGTH_SHORT).show();

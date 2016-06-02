@@ -46,27 +46,27 @@ public class PantallaRegistro extends AppCompatActivity {
             public void onClick(View v) {
                 if (TextUtils.isEmpty(nombre.getText().toString())){
                     nombre.requestFocus();
-                    nombre.setError("El nombre no puede ser vacio");
+                    nombre.setError("El nombre no puede ser vacío");
                     return;
                 }
                 if (TextUtils.isEmpty(alias.getText().toString())){
                     alias.requestFocus();
-                    alias.setError("El username no puede ser vacio");
+                    alias.setError("El usuario no puede ser vacío");
                     return;
                 }
                 if (TextUtils.isEmpty(cel.getText().toString())){
                     cel.requestFocus();
-                    cel.setError("El Numero telefonico no puede ser vacio");
+                    cel.setError("El número telefónico no puede ser vacío");
                     return;
                 }
                 if (TextUtils.isEmpty(cel2.getText().toString())){
                     cel2.requestFocus();
-                    cel2.setError("El Numero telefonico no puede ser vacio");
+                    cel2.setError("El número telefónico no puede ser vacío");
                     return;
                 }
                 if (!(Pattern.compile("^[a-zA-Z0-9_]+$").matcher(alias.getText().toString()).matches())) {
                     alias.requestFocus();
-                    alias.setError("Usuario no puedo contener espacios o caracteres especiales.");
+                    alias.setError("Usuario no puede contener espacios o caracteres especiales.");
                 }
                 if(cel.getText().toString().equals(cel2.getText().toString())){
                     ConexionWeb conexionWeb = new ConexionWeb(PantallaRegistro.this);
@@ -88,8 +88,8 @@ public class PantallaRegistro extends AppCompatActivity {
 
                 }else{
                     cel.requestFocus();
-                    cel.setError("Los numeros telefonicos no coinciden");
-                    cel2.setError("Los numeros telefonicos no coinciden");
+                    cel.setError("Los números telefónicos no coinciden");
+                    cel2.setError("Los números telefónicos no coinciden");
                 }
 
             }
@@ -115,7 +115,7 @@ public class PantallaRegistro extends AppCompatActivity {
 
 
         if(res.startsWith("Error_404_2")){
-            res = "Error al enviar o recibir informacion con el php";
+            res = "Error al enviar o recibir información con el php";
         }
         if(res.startsWith("Error_404_1")){
             res = "Hosting no encontrado";
@@ -141,7 +141,7 @@ public class PantallaRegistro extends AppCompatActivity {
         }
         if(res.startsWith("No insertado")){
             //alert.setTitle("Error al registrar").setMessage("Intentalo mas tarde").show();
-            Toast.makeText(PantallaRegistro.this,"Error al insertar. Intentalo más tarde.",Toast.LENGTH_LONG).show();
+            Toast.makeText(PantallaRegistro.this,"Error al insertar. Inténtalo más tarde.",Toast.LENGTH_LONG).show();
         }
 
 
