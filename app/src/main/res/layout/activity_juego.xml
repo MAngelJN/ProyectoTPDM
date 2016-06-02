@@ -11,11 +11,4 @@
     tools:context="mx.edu.ittepic.gameofarrows.Juego"
     android:weightSum="1">
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:layout_gravity="bottom"
-        android:layout_weight="0.50" />
 </LinearLayout>

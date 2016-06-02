@@ -147,7 +147,7 @@ public class Juego extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.cancel();
-                                        elTurno=0;
+                                        elTurno = 0;
                                     }
                                 })
                                 .setNegativeButton("Ño", new DialogInterface.OnClickListener() {
@@ -238,11 +238,14 @@ public class Juego extends AppCompatActivity {
         public void onDraw(Canvas c){
             Paint p = new Paint();
             p.setColor(Color.RED);
-            c.drawRoundRect(ancho - 50, y2, ancho - 10, alto - 100, 20f, 20f, p);//POTENCIA9
+            //c.drawRoundRect(ancho - 50, y2, ancho - 10, alto - 100, 20f, 20f, p);//POTENCIA9
+            c.drawRect(ancho - 50, y2, ancho - 10, alto - 100, p);//POTENCIA9
             p.setColor(Color.GRAY);
-            c.drawRoundRect(10, 10, 415, 50, 20f, 20.0f, p);
+            //c.drawRoundRect(10, 10, 415, 50, 20f, 20.0f, p);
+            c.drawRect(10, 10, 415, 50,p);
             p.setColor(Color.LTGRAY);
-            c.drawRoundRect(10, 10, xt, 50, 20f, 20.0f, p);//Tiempo
+            //c.drawRoundRect(10, 10, xt, 50, 20f, 20.0f, p);//Tiempo
+            c.drawRect(10, 10, xt, 50,p);
             c.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.d), ancho - 200,yDiana,p);//DIANA
             c.drawBitmap(flecha, x, y, p);
             if(viento<0){

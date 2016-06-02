@@ -73,9 +73,18 @@ public class Principal extends AppCompatActivity {
                 abrirNormal();
             }
         });
+        img8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirRecords();
+            }
+        });
 
     }
 
     private void abrirOpciones(){startActivity(new Intent(this,Opciones.class).putExtra("user",username));}
     private void abrirNormal(){startActivity(new Intent(this,Juego.class).putExtra("user",username));}
+    private void abrirRecords(){startActivity(new Intent(this, Records.class));}
+
+
 }
