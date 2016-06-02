@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -26,6 +27,8 @@ import java.net.URL;
 import java.util.Random;
 
 public class JuegoOL extends AppCompatActivity {
+    ConexionWeb conexionWebl;
+    EditText usuarioET;
     Lienzo lienzo;
     Bitmap flecha;
     int x,y,x2,y2,izq,der,top,yDiana;
@@ -34,7 +37,7 @@ public class JuegoOL extends AppCompatActivity {
     int alto, ancho, potencia, viento,elTurno;
     Random random;
     float tiempo;
-    boolean direccion, timeOver;
+    boolean direccion, timeOver, esMiTurno;
     String username,wind;
     int userP,cpuP;
     @Override
@@ -43,7 +46,10 @@ public class JuegoOL extends AppCompatActivity {
         //setContentView(R.layout.activity_juego_ol);
         //setContentView(R.layout.activity_juego);
         lienzo = new Lienzo(this);
+        esMiTurno= false;
         setContentView(lienzo);
+        conexionWebl = new ConexionWeb(this);
+        usuarioET = new EditText(JuegoOL.this);
         elTurno=0;
         userP= cpuP = 0;
         x=0;
@@ -63,6 +69,7 @@ public class JuegoOL extends AppCompatActivity {
         xt= 415;
         Bundle b = getIntent().getExtras();
         username = b.getString("user");
+        username = username.toLowerCase();
 
         Display display = this.
                 getWindowManager().getDefaultDisplay();
@@ -86,7 +93,54 @@ public class JuegoOL extends AppCompatActivity {
         y2=alto-110;
         //System.out.println("***************************ALTO************************* " + alto);
         //System.out.println("***************************ANCHO************************* " + ancho);
+        AlertDialog.Builder alert = new AlertDialog.Builder(JuegoOL.this);
+        alert.setTitle("Game Of Arrows")
+                .setMessage("¿Qué quieres hacer?")
+                .setPositiveButton("Empezar una partida", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        new AlertDialog.Builder(JuegoOL.this).setTitle("Usuario a retar")
+                                .setView(usuarioET)
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        ConexionWeb conexionWeb = new ConexionWeb(JuegoOL.this);
+                                        conexionWeb.agregarVariables("des",usuarioET.getText().toString().toLowerCase());
+                                        conexionWeb.agregarVariables("rem",username.toLowerCase()+"");
+                                        conexionWeb.agregarVariables("mensaje",username+"");
+                                        try {
+                                            URL url = new URL("http://gameofarrows.ueuo.com/GameOfArrows/enviar.php");
+                                            conexionWeb.execute(url);
+                                        } catch (MalformedURLException e) {
+                                            new AlertDialog.Builder(JuegoOL.this).setMessage(e.getMessage()).setTitle("Error").show();
+                                        }
+                                        dialog.dismiss();
+                                    }
+                                }).show();
 
+                    }
+                })
+                .setNegativeButton("Unirme a una partida", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        new AlertDialog.Builder(JuegoOL.this).setTitle("Usuario que te reta")
+                                .setView(usuarioET)
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                        conexionWebl.agregarVariables("rem",usuarioET.getText().toString().toLowerCase());
+                                        conexionWebl.agregarVariables("user",username.toLowerCase()+"");
+                                        dialog.dismiss();
+                                        //INICIAR HILO PARA EMPEZAR A LEER DATOS
+                                    }
+                                }).show();
+                    }
+                })
+                        //.setView(image)
+                .show();
         flecha = BitmapFactory.decodeResource(getResources(), R.drawable.flecha);
 
         tiro = new CountDownTimer(15000,10) {
@@ -111,6 +165,17 @@ public class JuegoOL extends AppCompatActivity {
                     //tiro.cancel();
                 }else {
                     //La flecha ya choco, asi que los valores se restauran para que el siguiente turno empieze
+                    ConexionWeb conexionWeb = new ConexionWeb(JuegoOL.this);
+                    conexionWeb.agregarVariables("des",usuarioET.getText().toString().toLowerCase());
+                    conexionWeb.agregarVariables("rem",username.toLowerCase()+"");
+                    conexionWeb.agregarVariables("mensaje",usuarioET.getText().toString().toLowerCase()+"");
+                    try {
+                        URL url = new URL("http://gameofarrows.ueuo.com/GameOfArrows/enviar.php");
+                        conexionWeb.execute(url);
+                    } catch (MalformedURLException e) {
+                        new AlertDialog.Builder(JuegoOL.this).setMessage(e.getMessage()).setTitle("Error").show();
+                    }
+                    esMiTurno=false;
                     userP = userP + puntos();
                     cpuP = cpuP + tiroComputadora();
                     viento = random.nextInt(100-10+1) + 10;//(max - min +1) + min
@@ -270,30 +335,31 @@ public class JuegoOL extends AppCompatActivity {
 
         public boolean onTouchEvent(MotionEvent e){
             //e.getX y e.getY que corresponden a la coordenada tocada
+            if (esMiTurno){
+                if(elTurno<3){
+                    if(e.getAction()== MotionEvent.ACTION_DOWN){
+                        //cuando tocas la pantalla, en un View/Surface
+                        //x=(int)e.getX();
+                        y=(int)e.getY();
+                        tiro.cancel();
 
-            if(elTurno<3){
-                if(e.getAction()== MotionEvent.ACTION_DOWN){
-                    //cuando tocas la pantalla, en un View/Surface
-                    //x=(int)e.getX();
-                    y=(int)e.getY();
-                    tiro.cancel();
-
-                    bPotencia.start();
-                    turno.start();
-                    invalidate();
-                }
-                if(e.getAction()== MotionEvent.ACTION_MOVE){
-                    //Se ejecuta cuando arrastras
-                    //x=(int)e.getX();
-                    y=(int)e.getY();
-                    invalidate();
-                }
-                if(e.getAction()== MotionEvent.ACTION_UP){
-                    //cuando destocas la paantalla
-                    if(!timeOver) {
-                        bPotencia.cancel();
-                        turno.cancel();
-                        tiro.start();
+                        bPotencia.start();
+                        turno.start();
+                        invalidate();
+                    }
+                    if(e.getAction()== MotionEvent.ACTION_MOVE){
+                        //Se ejecuta cuando arrastras
+                        //x=(int)e.getX();
+                        y=(int)e.getY();
+                        invalidate();
+                    }
+                    if(e.getAction()== MotionEvent.ACTION_UP){
+                        //cuando destocas la paantalla
+                        if(!timeOver) {
+                            bPotencia.cancel();
+                            turno.cancel();
+                            tiro.start();
+                        }
                     }
                 }
             }
@@ -348,8 +414,12 @@ public class JuegoOL extends AppCompatActivity {
     }
 
     public void resultado(String res){
-        if(res.startsWith("Insertado")){
+        if(res.startsWith("msj")){
             //Toast.makeText(this,"Se inserto",Toast.LENGTH_SHORT).show();
+            String[] m = res.split("-");
+            if(m[1].equals(username)){
+                esMiTurno=true;
+            }
         }
         if (res.startsWith("No insertado")){
             //Toast.makeText(this,"No se inserto",Toast.LENGTH_SHORT).show();
