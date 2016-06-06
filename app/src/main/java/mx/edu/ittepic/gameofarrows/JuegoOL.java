@@ -203,7 +203,7 @@ public class JuegoOL extends AppCompatActivity {
                     viento = random.nextInt(100-10+1) + 10;//(max - min +1) + min
                     if(random.nextInt(10-2+1)+2>=6){
                         //vientoDirecion=true;
-                        wind = viento/10+"";
+
                     }else{
                         //vientoDirecion=false;
                         viento=viento*-1;
@@ -441,10 +441,13 @@ public class JuegoOL extends AppCompatActivity {
             //Toast.makeText(this,"Se inserto",Toast.LENGTH_SHORT).show();
             String[] m = res.split("-");
             System.out.println("*********************************************"+m[1]);
-            if(m[1].equals(username)){
+
+            if(m[1].toString().equals(username)){
+                System.out.println("*********************************************"+m[1]+"****** Ahora es tu turno");
                 esMiTurno=true;
                 Toast.makeText(this,"Es mi turno",Toast.LENGTH_SHORT);
             }else{
+                System.out.println("*********************************************"+m[1]+"****** Ahora es turno de tu oponente");
                 esMiTurno=false;
             }
         }

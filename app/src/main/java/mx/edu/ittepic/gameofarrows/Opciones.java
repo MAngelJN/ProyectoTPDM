@@ -1,6 +1,7 @@
 package mx.edu.ittepic.gameofarrows;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -79,7 +80,7 @@ public class Opciones extends AppCompatActivity {
 
     }
     public void resultado(String res){
-        //AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
         if(res.startsWith("Contraseña incorrecta")){
             //abrirPrincipal();
             //alias.setText("");
@@ -94,7 +95,7 @@ public class Opciones extends AppCompatActivity {
         if(res.startsWith("No se pudo")){
             Toast.makeText(Opciones.this, "No se pudo actualizar la contraseña. Intentalo mas tarde", Toast.LENGTH_LONG).show();
         }
-
+        System.out.println("******************************************************"+res);
 
         /*alert.setTitle("Respuesta desde servidor")
                 .setMessage(res)

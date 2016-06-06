@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".Login"
+            android:name=".Splash"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Splash"
+            android:name=".Login"
             android:screenOrientation="portrait" />
         <activity
             android:name=".PantallaRegistro"
@@ -39,6 +39,9 @@
             android:name=".JuegoOL"
             android:screenOrientation="landscape"
             />
+        <activity
+            android:name=".Ranking"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

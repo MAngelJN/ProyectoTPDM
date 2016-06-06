@@ -39,7 +39,7 @@ public class Login extends AppCompatActivity {
         registro = (TextView) findViewById(R.id.textView);
         //con = (TextView) findViewById(R.id.textView2);
         mp = MediaPlayer.create(this, R.raw.musica);
-        //mp.start();
+        mp.start();
 
         entrar.setOnClickListener(new View.OnClickListener() {
             @Override

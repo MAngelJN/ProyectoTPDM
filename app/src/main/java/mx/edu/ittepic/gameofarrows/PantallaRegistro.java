@@ -67,6 +67,7 @@ public class PantallaRegistro extends AppCompatActivity {
                 if (!(Pattern.compile("^[a-zA-Z0-9_]+$").matcher(alias.getText().toString()).matches())) {
                     alias.requestFocus();
                     alias.setError("Usuario no puede contener espacios o caracteres especiales.");
+                    return;
                 }
                 if(cel.getText().toString().equals(cel2.getText().toString())){
                     ConexionWeb conexionWeb = new ConexionWeb(PantallaRegistro.this);

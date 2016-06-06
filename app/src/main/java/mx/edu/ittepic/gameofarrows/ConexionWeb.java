@@ -116,7 +116,7 @@ public class ConexionWeb extends AsyncTask<URL,String,String> {
             registro.resultado(s);
         }
         if(!(opciones==null)){
-            registro.resultado(s);
+            opciones.resultado(s);
         }
         if(!(juego==null)){
             juego.resultado(s);
